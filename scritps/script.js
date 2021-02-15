@@ -16,6 +16,8 @@ const todoControl = document.querySelector('.todo-control'),
         render();
     }
     
+    //enterHeader();
+
     const showText = function(){
         localStorage.getItem
     }
@@ -52,6 +54,8 @@ const todoControl = document.querySelector('.todo-control'),
             })
             
         });
+        
+        
         /*
          function enterHeader(){
             if (headerInput.value === '') {
@@ -66,12 +70,20 @@ const todoControl = document.querySelector('.todo-control'),
 
     todoControl.addEventListener('submit', function(event){
         event.preventDefault();
-        
-        if (headerInput.value === '') {
-            alert('введите задачу');
-            //headerButton.removeAttribute('disabled');  
+        function emptyValue (){
+            if( headerInput.value !== ''){
+                //alert('введите строку');
+                headerButton.removeAttribute('disabled');
+            }
+        }
+        emptyValue();
+        /*
+        if (headerInput.value !== '') {
+            //alert('введите задачу');
+            //headerButton.disabled = true;
+            headerButton.removeAttribute('disabled');  
         } 
-        
+        */
         const newTodo = {
             value: headerInput.value,
             completed: false
@@ -83,10 +95,11 @@ const todoControl = document.querySelector('.todo-control'),
         render();
         
     });
-
+    //headerButton.setAttribute('disabled', 'true');
     
     render();
-    //headerButton.setAttribute('disabled', 'true');
+    
+    headerButton.setAttribute('disabled', 'true');
    
    
     

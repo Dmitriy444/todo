@@ -5,7 +5,6 @@ const todoControl = document.querySelector('.todo-control'),
     todoList = document.querySelector('.todo-list'),
     todoCompleted = document.querySelector('.todo-completed'),
     headerButton = document.querySelector('.header-button'),
-    //todoRemove = document.querySelector('.todo-remove'),
     todoСontainer = document.querySelector('.todo-container'),
     todoItem = document.querySelector('.todo-item');
 
@@ -15,8 +14,6 @@ const todoControl = document.querySelector('.todo-control'),
         todoData = JSON.parse(localStorage.getItem('todo'));
         render();
     }
-    
-    //enterHeader();
 
     const showText = function(){
         localStorage.getItem
@@ -44,46 +41,22 @@ const todoControl = document.querySelector('.todo-control'),
             const todoComplete = li.querySelector('.todo-complete');
             todoComplete.addEventListener('click', function(){
                 item.completed = !item.completed;
+                localStorage.setItem('todo', JSON.stringify(todoData));
                 render();
             })
             
             const todoDelete = li.querySelector('.todo-remove');
             todoDelete.addEventListener('click', function(){
                 todoData.splice(i, 1);
+                localStorage.setItem('todo', JSON.stringify(todoData));
                 render();
-            })
-            
+            }) 
         });
-        
-        
-        /*
-         function enterHeader(){
-            if (headerInput.value === '') {
-                alert('введите задачу');
-                //headerButton.removeAttribute('disabled');
-               
-            }
-            */
-        
-        //enterHeader();
     }
 
     todoControl.addEventListener('submit', function(event){
         event.preventDefault();
-        function emptyValue (){
-            if( headerInput.value !== ''){
-                //alert('введите строку');
-                headerButton.removeAttribute('disabled');
-            }
-        }
-        emptyValue();
-        /*
-        if (headerInput.value !== '') {
-            //alert('введите задачу');
-            //headerButton.disabled = true;
-            headerButton.removeAttribute('disabled');  
-        } 
-        */
+        
         const newTodo = {
             value: headerInput.value,
             completed: false
@@ -91,11 +64,20 @@ const todoControl = document.querySelector('.todo-control'),
         
         todoData.push(newTodo);
         headerInput.value = '';
+
         localStorage.setItem('todo', JSON.stringify(todoData));
         render();
         
     });
-    //headerButton.setAttribute('disabled', 'true');
+    headerInput.addEventListener('input', function(){
+        
+        function emptyValue (){
+            if( headerInput.value !== ''){
+                headerButton.removeAttribute('disabled');
+            }
+        }
+        emptyValue();
+    });
     
     render();
     
